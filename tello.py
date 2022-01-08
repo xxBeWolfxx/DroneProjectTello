@@ -35,7 +35,7 @@ class Tello:
         self.log.append(Stats(command, len(self.log)))
 
         self.socket.sendto(command.encode('utf-8'), self.tello_adderss)
-        print ('sending command: {} to {}'.format (command, self.tello_ip))
+        print(f'sending command: {command} to {self.tello_ip}')
 
         start = time.time()
         while not self.log[-1].got_response():
@@ -46,7 +46,7 @@ class Tello:
                 # TODO: is timeout considered failure or next command still get executed
                 # now, next one got executed
                 return
-        print('Done!!! sent command: %s to %s'.format(command, self.tello_ip))
+        print(f'Done!!! sent command: {command} to {self.tello_ip}')
 
     def _receive_thread(self):
         """Listen to responses from the Tello.
@@ -57,7 +57,7 @@ class Tello:
         while True:
             try:
                 self.response, ip = self.socket.recvfrom(1024)
-                print('from %s: %s' % (ip, self.response))
+                print(f'from {ip}: {self.response}')
 
                 self.log[-1].add_response(self.response)
             except socket.error as exc:
