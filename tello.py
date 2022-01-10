@@ -66,7 +66,7 @@ class Tello:
 
     def _video_thread(self):
         # Creating stream capture object
-        cap = cv2.VideoCapture('udp://' + self.tello_ip + ':11111')
+        cap = cv2.VideoCapture('udp://@' + self.tello_ip + ':11111')
         # Runs while 'stream_state' is True
         while self.stream_state:
             ret, self.last_frame = cap.read()
