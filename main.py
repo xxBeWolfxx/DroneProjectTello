@@ -12,7 +12,7 @@ while True:
     if start == True:
         drone.streamon()
         start = False
-    if cv2.waitKey(1) & 0xFF == ord('w'):
+    if drone.last_frame is not None:        
         data, bbox, straigt_qrcode = detector.detectAndDecode(drone.last_frame) 
         if bbox is not None:
             print(data)
