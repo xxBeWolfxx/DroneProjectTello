@@ -65,13 +65,15 @@ class Tello:
                 print('Socket error: {}'.format(exc))
 
     def _video_thread(self):
+        
         # Creating stream capture object
         cap = cv2.VideoCapture('udp://@' + self.tello_ip + ':11111')
         # Runs while 'stream_state' is True
-        while self.stream_state:
+        while cap.isOpened():
             ret, self.last_frame = cap.read()
+            if not ret:
+                continue
             cv2.imshow('DJI Tello', self.last_frame)
-
             # Video Stream is closed if escape key is pressed
             k = cv2.waitKey(1) & 0xFF
             if k == 27:
