@@ -2,7 +2,7 @@ import socket
 import threading
 import time
 import cv2
-from easytello.stats import Stats
+from stats import Stats
 
 
 class Tello:
