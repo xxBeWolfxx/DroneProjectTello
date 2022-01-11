@@ -2,7 +2,6 @@
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-from tello import Tello
 from TelloBird import TelloBird
 import cv2
 import time
@@ -52,4 +51,5 @@ except KeyboardInterrupt:
 
     # if cv2.waitKey(1) & 0xFF == ord('q'):
     #     drone.streamoff()
+
 

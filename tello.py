@@ -202,3 +202,8 @@ class Tello():
     def get_wifi(self):
         self.send_command('wifi?', True)
         return self.log[-1].get_response()
+    
+    def get_stat(self):
+        return self.log[-1].get_response()
+    
+
