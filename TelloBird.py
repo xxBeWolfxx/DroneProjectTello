@@ -3,7 +3,7 @@ from tello import Tello
 
 class TelloBird(Tello):
     currentState = "landed"
-    listOfStates = ["landed", "in-air","moving","turning"]
+    listOfStates = ["landed", "in-air","moving","turning","too-weak"]
     minimalTimeWaiting = 3.0
 
 
@@ -12,9 +12,15 @@ class TelloBird(Tello):
         super().__init__()
         self.wait(self.minimalTimeWaiting)
         self.land()
+        self.getData()
+        if self.battery <= 10:
+            print("Too low battery, recharge: ", self.battery)
+            self.currentState = self.listOfStates[-1]
+        
 
 
-    def getDate(self):
+
+    def getData(self):
         self.battery = self.get_battery()
         """TODO: Add more settings"""
 
