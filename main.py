@@ -3,31 +3,53 @@
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 from tello import Tello
-import sys
-from datetime import datetime
+from TelloBird import TelloBird
+import cv2
 import time
-
-
-startTime = datetime.now()
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+import datetime
 
 
 
 
-# Press the green button in the gutter to run the script.
-# if __name__ == '__main__':
-print_hi('PyCharm')
-drone = Tello()
+drone = TelloBird()
 start = True
-while True:
-    if start == True:
-        drone.streamon()
-        start = False
+
+try:
+    while start:
+        if start == True:
+            # drone.streamon()
+            drone.takeoff()
+            print(drone.get_battery())
+            start = False
+            drone.wait(3)
+    # if drone.last_frame is not  None:
+    #     data, bbox, straigt_qrcode = detector.detectAndDecode(drone.last_frame)
+    #     if bbox is not None:
+    #         print(data)
 
 
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+        for i in range(4):
+            drone.cw(90)
+            drone.wait(3)
+            print(drone.get_speed())
+        # temp = drone.get_log()
+        # print(temp[-1].get_response())
+        # if str(temp[-1].get_response()) == "b'ok'":
+        #     print("Sztos")
+        # drone.takeoff()
+        # drone.wait(5)
+        drone.land()
+
+
+
+
+except KeyboardInterrupt:
+    drone.EmergencyCall()
+
+
+# drone.streamoff()
+
+    # if cv2.waitKey(1) & 0xFF == ord('q'):
+    #     drone.streamoff()
+
