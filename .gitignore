@@ -4,4 +4,5 @@ __pycache__/tello.cpython-38.pyc
 .idea/DroneProjectTello.iml
 .idea/misc.xml
 __pycache__/stats.cpython-38.pyc
-__pycache__
+__pycache__/*
+.idea/*
