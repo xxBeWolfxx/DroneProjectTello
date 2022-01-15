@@ -54,7 +54,7 @@ class TelloBird(Tello):
         self.land()
 
     def BasicMisssionL(self) -> int:
-        if self.currentState == "landed":
+        if self.currentState == self.listOfStates[0]:
             self.takeoff()
             self.wait(self.minimalTimeWaiting)
             self.currentState = self.listOfStates[1]
@@ -86,8 +86,10 @@ class TelloBird(Tello):
 
     def StartMission(self, chooseMission: int, parametr):
         if chooseMission == 0:
+            self.wait(self.minimalTimeWaiting)
             self.BasicMisssionL()
         elif chooseMission == 1:
+            self.wait(self.minimalTimeWaiting)
             self.SquareMissionL(parametr)
 
 
