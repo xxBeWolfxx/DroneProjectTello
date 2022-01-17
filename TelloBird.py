@@ -38,7 +38,6 @@ class TelloBird(Tello):
 
     def __endingMission__(self):
         self.statusOfMission = False
-        self.streamon()
 
     def __validadtionCommand__(self, commands):
         if len(commands) > 1:
@@ -74,10 +73,8 @@ class TelloBird(Tello):
             self.takeoff()
             self.currentState = self.listOfStates[1]
             self.sendingCommand(self.forward(int(distance)))
-            self.wait(self.minimalTimeWaiting)
             self.sendingCommand(self.cw(180))
             self.sendingCommand(self.forward(int(distance)))
-            self.wait(self.minimalTimeWaiting)
             self.land()
             self.currentState = self.listOfStates[0]
             self.__endingMission__()
@@ -92,8 +89,7 @@ class TelloBird(Tello):
             self.sendingCommand(self.takeoff())
             self.currentState = self.listOfStates[1]
             for i in range(2):
-                self.sendingCommand(self.forward(int(distance)))
-                time.sleep(1)
+                self.sendingCommand(self.forward(distance))
                 self.sendingCommand(self.cw(90))
             self.sendingCommand(self.land())
             self.currentState = self.listOfStates[1]
@@ -125,19 +121,19 @@ class TelloBird(Tello):
 
     def startMission(self, chooseMission: int, parametr):
         if chooseMission == 0:
-            self.wait(self.minimalTimeWaiting)
+            self.wait(int(self.minimalTimeWaiting*0.75))
             self.basicMisssionL()
         elif chooseMission == 1:
-            self.wait(self.minimalTimeWaiting)
+            self.wait(int(self.minimalTimeWaiting*0.75))
             self.squareMissionL(parametr)
         elif chooseMission == 2:
-            self.wait(self.minimalTimeWaiting)
+            self.wait(int(self.minimalTimeWaiting*0.75))
             self.squareMissionT(parametr)
         elif chooseMission == 3:
-            self.wait(self.minimalTimeWaiting)
+            self.wait(int(self.minimalTimeWaiting*0.75))
             self.takeOffMission()
-        elif chooseMission ==4:
-            self.wait(self.minimalTimeWaiting)
+        elif chooseMission == 4:
+            self.wait(int(self.minimalTimeWaiting*0.75))
             self.test(parametr)
 
     def sendingCommand(self, command):
