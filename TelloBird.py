@@ -39,7 +39,7 @@ class TelloBird(Tello):
                 self.StartMission(index,commands[1])
         self.bbox = None
 
-    def endingMission(self):
+    def __endingMission__(self):
         self.statusOfMission = False
         self.streamon()
 
@@ -66,11 +66,11 @@ class TelloBird(Tello):
             self.currentState = self.listOfStates[1]
             self.SendingCommand(self.land())
             self.currentState = self.listOfStates[0]
-            self.endingMission()
+            self.__endingMission__()
             return 1
         else:
             print("I can't start a mission, I am flying")
-            self.endingMission()
+            self.__endingMission__()
             return 0
 
     def Test(self, distance):
@@ -83,11 +83,11 @@ class TelloBird(Tello):
             self.wait(self.minimalTimeWaiting)
             self.land()
             self.currentState = self.listOfStates[0]
-            self.endingMission()
+            self.__endingMission__()
             return 1
         else:
             print("I can't start a mission, I am flying")
-            self.endingMission()
+            self.__endingMission__()
             return 0
 
     def SquareMissionL(self, distance):
@@ -100,10 +100,10 @@ class TelloBird(Tello):
                 self.SendingCommand(self.cw(90))
             self.SendingCommand(self.land())
             self.currentState = self.listOfStates[1]
-            self.endingMission()
+            self.__endingMission__()
         else:
             print("Something went wrong mate :(")
-        self.endingMission()
+        self.__endingMission__()
 
     def SquareMissionT(self, distance):
         distance = 30
@@ -113,17 +113,17 @@ class TelloBird(Tello):
                 self.SendingCommand(self.cw(90))
             self.SendingCommand(self.land())
             self.currentState = self.listOfStates[1]
-            self.endingMission()
+            self.__endingMission__()
         else:
             print("Something went wrong mate :(")
-        self.endingMission()
+        self.__endingMission__()
 
     def TakeOffMission(self):
         if self.currentState == self.listOfStates[0]:
             self.takeoff()
             self.wait(self.minimalTimeWaiting)
             self.currentState = self.listOfStates[1]
-            self.endingMission()
+            self.__endingMission__()
         else:
             return 0
 
