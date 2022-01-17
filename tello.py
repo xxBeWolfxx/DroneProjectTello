@@ -32,9 +32,11 @@ class Tello():
         self.debug = debug
         # Setting Tello to command mode
         self.command()
+        self.commandsHistory = []
 
     def send_command(self, command: str, query: bool = False):
         # New log entry created for the outbound command
+        self.commandsHistory.append(command)
         self.log.append(Stats(command, len(self.log)))
 
         # Sending command to Tello

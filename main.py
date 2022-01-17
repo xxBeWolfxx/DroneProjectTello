@@ -19,10 +19,10 @@ try:
             # drone.takeoff()
             # print(drone.get_battery())
             start = False
-            #drone.SquareMissionL(30)
+            #drone.squareMissionL(30)
 
 
-        drone.WatingForMission()
+        drone.watingForMission()
 
 
 
