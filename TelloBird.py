@@ -7,11 +7,9 @@ import cv2
 class TelloBird(Tello):
     currentState = "landed"
     statusOfMission = False
-    listOfStates = ["landed", "in-air","moving","turning","too-weak"]
-    listOfMissions = ["BasicMisssionL", "SquareMissionL", "SquareMissionT", "TakeOffMission"]
-    minimalTimeWaiting = 4.0
-
-
+    listOfStates = ["landed", "in-air", "moving", "turning", "too-weak"]
+    listOfMissions = ["basicMisssionL", "squareMissionL", "squareMissionT", "takeOffMission"]
+    minimalTimeWaiting = 3.0
 
     def __init__(self):
         super().__init__()
@@ -23,20 +21,19 @@ class TelloBird(Tello):
         if self.battery <= 10:
             print("Too low battery, recharge: ", self.battery)
             self.currentState = self.listOfStates[-1]
-        
-    def WatingForMission(self):
+
+    def watingForMission(self):
         if self.statusOfMission == True:
             return 0
         if self.last_frame is not None:
-                data, self.bbox, straigt_qrcode = self.detector.detectAndDecode(self.last_frame)
+            data, self.bbox, straigt_qrcode = self.detector.detectAndDecode(self.last_frame)
         if self.bbox is not None:
             print(data)
             if data != "":
                 commands = self.__validadtionCommand__(data.split())
                 index = self.listOfMissions.index(commands[0])
                 self.statusOfMission = True
-                # self.streamoff()
-                self.StartMission(index,commands[1])
+                self.startMission(index, commands[1])
         self.bbox = None
 
     def __endingMission__(self):
@@ -49,7 +46,6 @@ class TelloBird(Tello):
         commands.append("None")
         return commands
 
-
     def __getData__(self):
         self.battery = self.get_battery()
         """TODO: Add more settings"""
@@ -60,11 +56,11 @@ class TelloBird(Tello):
         self.streamoff()
         self.land()
 
-    def BasicMisssionL(self) -> int:
+    def basicMisssionL(self) -> int:
         if self.currentState == self.listOfStates[0]:
-            self.SendingCommand(self.takeoff())
+            self.sendingCommand(self.takeoff())
             self.currentState = self.listOfStates[1]
-            self.SendingCommand(self.land())
+            self.sendingCommand(self.land())
             self.currentState = self.listOfStates[0]
             self.__endingMission__()
             return 1
@@ -73,7 +69,7 @@ class TelloBird(Tello):
             self.__endingMission__()
             return 0
 
-    def Test(self, distance):
+    def test(self, distance):
         if self.currentState == self.listOfStates[0]:
             self.takeoff()
             self.wait(self.minimalTimeWaiting)
@@ -90,35 +86,34 @@ class TelloBird(Tello):
             self.__endingMission__()
             return 0
 
-    def SquareMissionL(self, distance):
+    def squareMissionL(self, distance):
         if self.currentState == self.listOfStates[0]:
-            self.SendingCommand(self.takeoff())
+            self.sendingCommand(self.takeoff())
             self.currentState = self.listOfStates[1]
             for i in range(2):
-                self.SendingCommand(self.forward(int(distance)))
+                self.sendingCommand(self.forward(int(distance)))
                 time.sleep(1)
-                self.SendingCommand(self.cw(90))
-            self.SendingCommand(self.land())
+                self.sendingCommand(self.cw(90))
+            self.sendingCommand(self.land())
             self.currentState = self.listOfStates[1]
-            self.__endingMission__()
         else:
             print("Something went wrong mate :(")
         self.__endingMission__()
 
-    def SquareMissionT(self, distance):
+    def squareMissionT(self, distance):
         distance = 30
         if self.currentState == self.listOfStates[1]:
             for i in range(4):
-                self.SendingCommand(self.forward(int(distance)))
-                self.SendingCommand(self.cw(90))
-            self.SendingCommand(self.land())
+                self.sendingCommand(self.forward(int(distance)))
+                self.sendingCommand(self.cw(90))
+            self.sendingCommand(self.land())
             self.currentState = self.listOfStates[1]
             self.__endingMission__()
         else:
             print("Something went wrong mate :(")
         self.__endingMission__()
 
-    def TakeOffMission(self):
+    def takeOffMission(self):
         if self.currentState == self.listOfStates[0]:
             self.takeoff()
             self.wait(self.minimalTimeWaiting)
@@ -127,27 +122,25 @@ class TelloBird(Tello):
         else:
             return 0
 
-    def StartMission(self, chooseMission: int, parametr):
+    def startMission(self, chooseMission: int, parametr):
         if chooseMission == 0:
             self.wait(self.minimalTimeWaiting)
-            self.BasicMisssionL()
+            self.basicMisssionL()
         elif chooseMission == 1:
             self.wait(self.minimalTimeWaiting)
-            self.SquareMissionL(parametr)
+            self.squareMissionL(parametr)
         elif chooseMission == 2:
             self.wait(self.minimalTimeWaiting)
-            self.SquareMissionT(parametr)
+            self.squareMissionT(parametr)
         elif chooseMission == 3:
             self.wait(self.minimalTimeWaiting)
-            self.TakeOffMission()
+            self.takeOffMission()
 
-
-
-    def SendingCommand(self, command):
+    def sendingCommand(self, command):
         while self.log[-1].get_response() != "b'ok'":
             print(self.log[-1].get_response())
-            self.wait(self.minimalTimeWaiting)
+            time.sleep(1)
             if self.log[-1].get_response() == "b'error No valid imu'":
-                self.previousCommand
+                self.send_command(self.commandsHistory[-1])
         command
         self.previousCommand = command
