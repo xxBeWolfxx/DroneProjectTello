@@ -6,6 +6,8 @@ from stats import Stats
 
 
 class Tello():
+    commandsHistory = []
+
     def __init__(self, tello_ip: str = '192.168.10.1', debug: bool = True):
         # Opening local UDP port on 8889 for Tello communication
         self.local_ip = ''
@@ -32,7 +34,7 @@ class Tello():
         self.debug = debug
         # Setting Tello to command mode
         self.command()
-        self.commandsHistory = []
+
 
     def send_command(self, command: str, query: bool = False):
         # New log entry created for the outbound command

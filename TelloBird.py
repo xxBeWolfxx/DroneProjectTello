@@ -8,7 +8,7 @@ class TelloBird(Tello):
     currentState = "landed"
     statusOfMission = False
     listOfStates = ["landed", "in-air", "moving", "turning", "too-weak"]
-    listOfMissions = ["basicMisssionL", "squareMissionL", "squareMissionT", "takeOffMission"]
+    listOfMissions = ["basicMisssionL", "squareMissionL", "squareMissionT", "takeOffMission","test"]
     minimalTimeWaiting = 3.0
 
     def __init__(self):
@@ -72,10 +72,11 @@ class TelloBird(Tello):
     def test(self, distance):
         if self.currentState == self.listOfStates[0]:
             self.takeoff()
-            self.wait(self.minimalTimeWaiting)
             self.currentState = self.listOfStates[1]
-            self.forward(int(distance))
-            print(self.get_speed())
+            self.sendingCommand(self.forward(int(distance)))
+            self.wait(self.minimalTimeWaiting)
+            self.sendingCommand(self.cw(180))
+            self.sendingCommand(self.forward(int(distance)))
             self.wait(self.minimalTimeWaiting)
             self.land()
             self.currentState = self.listOfStates[0]
@@ -135,12 +136,14 @@ class TelloBird(Tello):
         elif chooseMission == 3:
             self.wait(self.minimalTimeWaiting)
             self.takeOffMission()
+        elif chooseMission ==4:
+            self.wait(self.minimalTimeWaiting)
+            self.test(parametr)
 
     def sendingCommand(self, command):
-        while self.log[-1].get_response() != "b'ok'":
-            print(self.log[-1].get_response())
-            time.sleep(1)
-            if self.log[-1].get_response() == "b'error No valid imu'":
-                self.send_command(self.commandsHistory[-1])
+        self.wait(int(self.minimalTimeWaiting*2))
         command
-        self.previousCommand = command
+
+
+    def saveLogs(self):
+        pass
