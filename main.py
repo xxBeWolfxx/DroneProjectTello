@@ -19,9 +19,10 @@ try:
             # drone.takeoff()
             # print(drone.get_battery())
             start = False
+            #drone.squareMissionL(30)
 
 
-        drone.WatingForMission()
+        drone.watingForMission()
 
 
 
@@ -29,7 +30,7 @@ try:
 
 
 except KeyboardInterrupt:
-    # drone.EmergencyCall()
+    drone.EmergencyCall()
     drone.streamoff()
 
 
