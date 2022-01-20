@@ -91,6 +91,16 @@ You can see that we have implemented simply switch case method. Code checks whic
             return 0
 ```
 The _endingMission_ provides resetting all variables which are essential to run the next mission.
+
+
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+
+Please make sure to update tests as appropriate.
+
+## License
+[MIT](https://choosealicense.com/licenses/mit/)
+
 ***
 # FAQ
 1. Problems with H.264 decoder.
