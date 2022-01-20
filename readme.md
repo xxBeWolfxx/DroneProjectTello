@@ -99,7 +99,7 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## License
-> MIT License
+
 Copyright (c) 2021 Arkadiusz Kruszynki Maciej Zawadzki
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
