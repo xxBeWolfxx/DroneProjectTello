@@ -23,7 +23,7 @@ We have defined a list with all available missions and states of UAV:
 class TelloBird(Tello):
     ...
     listOfStates = ["landed", "in-air", "moving", "turning", "too-weak"]
-    listOfMissions = ["basicMisssionL", "squareMissionL", "squareMissionT", "takeOffMission","test"]
+    listOfMissions = ["basicMisssionL", "squareMissionL", "squareMissionT", "takeOffMission", "circleMissionL","eightMissionL","circleCurveMissionL", "test"]
     ...
 ```
 List of states provides security that we will not be able to run a mission which requires different starting state. For example, we will not able rerun _takeOffMission_ because the drone will already have set a state _in-air_. The last letter in name of a mission says on state of drone:
