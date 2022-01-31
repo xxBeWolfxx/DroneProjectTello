@@ -11,3 +11,10 @@ python3 TelloBird.py
 ```
 #### CAUTION
 To run drone smoothly after starting code, you need to wait until GUI with the camera view from drone show up. 
+
+### STEP 3 
+Show QRcode to drone camera, correct command will be listed in terminal.
+Some missions take longer, because of time lag input. It is neccesary to give drone time to stablizate itself. Lower time can couse some error like
+```bash
+Response: error'no valid imu'
+```
