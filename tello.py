@@ -30,7 +30,7 @@ class Tello():
         # easyTello runtime options
         self.stream_state = False
         self.last_frame = None
-        self.MAX_TIME_OUT = 15.0
+        self.MAX_TIME_OUT = 30.0
         self.debug = debug
         # Setting Tello to command mode
         self.command()
