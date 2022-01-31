@@ -18,3 +18,10 @@ Some missions take longer, because of time lag input. It is neccesary to give dr
 ```bash
 Response: error'no valid imu'
 ```
+### STEP 4
+Wait until drone mission is ended and repeat steps 3-4
+
+### EMERGENCY SHUT DOWN
+If something wrong happend, you can use ctrl+C keyboard interrupt in terminal to stop drone motors. 
+#### CAUTION
+Be careful about surroundings. Emergency stop can make some damage (even destroy Dji Tello) if used in not properly adapted environment.
