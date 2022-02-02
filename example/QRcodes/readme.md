@@ -13,11 +13,11 @@ for x in listOfMissions:
     img = qrcode.make(data)
     img.save(data+".png")
 ```
-The script makes two QR codes with random values of parameters, which are chosen between 15 and 70. Then QR codes are saved as PNG files.
+The script makes two QR codes with random values of parameters, which are chosen between 15 and 70. Then QR codes are saved as PNG files. Some samples of QR codes are included in the example's folder.
 ### STEP 2 
 Open terminal and run
 ```bash
-python3 TelloBird.py
+python3 main.py
 ```
 > __CAUTION__
 > To run the drone smoothly after starting the code, you need to wait until GUI with the camera view from the drone showed up.
