@@ -18,5 +18,5 @@ Wait and watch how your drone can fly. After two mission code stops.
 
 ## EMERGENCY SHUT DOWN
 If something wrong happened, you can use the ctrl+C keyboard interrupt in the terminal to stop drone motors. 
-#### CAUTION
-Be careful about your surroundings. Emergency stops can make some damage (even destroy Dji Tello) if used in not properly adapted environment.
+> __CAUTION__
+> Be careful about your surroundings. Emergency stops can make some damage (even destroy Dji Tello) if used in not properly adapted environment.
