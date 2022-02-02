@@ -92,12 +92,23 @@ You can see that we have implemented simply switch case method. Code checks whic
 ```
 The _endingMission_ provides resetting all variables which are essential to run the next mission.
 
+We add a function that saves all logs into a CSV file. It writes for example:
+```csv
+Id,Command,Response,Start_time,End_time,Duration
+0,command,b'ok',2022-01-31 15:57:43.856717,2022-01-31 15:57:43.917605,0.060888
+1,wait,,2022-01-31 15:57:43.917711,,
+2,land,b'error',2022-01-31 15:57:46.920994,2022-01-31 15:57:46.937990,0.016996
+.
+.
+.
+```
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
-
+***
 ## License
 
 Copyright (c) 2021 Arkadiusz Kruszynki Maciej Zawadzki
