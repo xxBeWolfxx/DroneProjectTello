@@ -3,13 +3,13 @@ import time
 from tello import Tello
 import cv2
 import csv
-
+import math
 
 class TelloBird(Tello):
     currentState = "landed"
     statusOfMission = False
     listOfStates = ["landed", "in-air", "moving", "turning", "too-weak"]
-    listOfMissions = ["basicMisssionL", "squareMissionL", "squareMissionT", "takeOffMission", "test"]
+    listOfMissions = ["basicMisssionL", "squareMissionL", "squareMissionT", "takeOffMission", "circleMissionL","eightMissionL","circleCurveMissionL", "test"]
     minimalTimeWaiting = 3.0
 
     def __init__(self):
@@ -52,10 +52,11 @@ class TelloBird(Tello):
 
     def EmergencyCall(self):
         print("Emergency call!!!")
+        self.__saveLogs__()
         self.emergency()
         self.streamoff()
         self.land()
-        self.__saveLogs__()
+
 
     def basicMisssionL(self) -> int:
         if self.currentState == self.listOfStates[0]:
@@ -90,7 +91,7 @@ class TelloBird(Tello):
         if self.currentState == self.listOfStates[0]:
             self.sendingCommand(self.takeoff(),1)
             self.currentState = self.listOfStates[1]
-            for i in range(2):
+            for i in range(4):
                 self.sendingCommand(self.forward(distance),2)
                 self.sendingCommand(self.cw(90),1)
             self.sendingCommand(self.land(),1)
@@ -100,7 +101,6 @@ class TelloBird(Tello):
         self.__endingMission__()
 
     def squareMissionT(self, distance):
-        distance = 30
         if self.currentState == self.listOfStates[1]:
             for i in range(4):
                 self.sendingCommand(self.forward(int(distance)),1)
@@ -115,11 +115,57 @@ class TelloBird(Tello):
     def takeOffMission(self):
         if self.currentState == self.listOfStates[0]:
             self.sendingCommand(self.takeoff(),1)
-            self.wait(self.minimalTimeWaiting)
             self.currentState = self.listOfStates[1]
             self.__endingMission__()
         else:
             return 0
+
+    def circleMissionL(self, radius):
+        if self.currentState == self.listOfStates[0]:
+            radius = int(radius)
+            self.sendingCommand(self.takeoff(), 1)
+            self.sendingCommand(self.up(150), 1)
+            radius = int(radius * math.sqrt(2.0))
+            self.sendingCommand(self.curve(radius,0,0,radius,radius,0,20), 1)
+            self.sendingCommand(self.curve(-radius, 0, 0, -radius, -radius, 0, 20), 1)
+            self.sendingCommand(self.land(),1)
+            self.__endingMission__()
+        else:
+            self.__endingMission__()
+            return 0
+
+    def circleCurveMissionL(self, radius):
+        if self.currentState == self.listOfStates[0]:
+            radius = int(radius)
+            self.sendingCommand(self.takeoff(), 1)
+            radius = int(radius * math.sqrt(2.0))
+            self.sendingCommand(self.curve(radius,0,40,radius,radius,60,20), 1)
+            self.sendingCommand(self.curve(-radius, -40, 0, -radius, -radius, -60, 20), 1)
+            self.sendingCommand(self.land(),1)
+            self.__endingMission__()
+        else:
+            self.__endingMission__()
+            return 0
+
+    def eightMissionL(self, radius):
+        if self.currentState == self.listOfStates[0]:
+            radius = int(radius)
+            self.sendingCommand(self.takeoff(), 1)
+            self.sendingCommand(self.up(100), 1)
+            radius = int(radius * math.sqrt(2.0))
+            self.sendingCommand(self.curve(radius, 0, 0, radius, radius, 0, 30), 1.5)
+            self.sendingCommand(self.curve(-radius, 0, 0, -radius, -radius, 0, 30), 1.5)
+            self.sendingCommand(self.curve(-radius, 0, 0, -radius, radius, 0, 30), 1.5)
+            self.sendingCommand(self.curve(radius, 0, 0, radius, -radius, 0, 30), 1.5)
+            self.sendingCommand(self.land(), 1)
+            self.__endingMission__()
+        else:
+            self.__endingMission__()
+            return 0
+
+
+
+
 
     def startMission(self, chooseMission: int, parametr):
         if chooseMission == 0:
@@ -134,7 +180,20 @@ class TelloBird(Tello):
         elif chooseMission == 3:
             self.wait(int(self.minimalTimeWaiting * 0.75))
             self.takeOffMission()
+
         elif chooseMission == 4:
+            self.wait(int(self.minimalTimeWaiting * 0.75))
+            self.circleMissionL(parametr)
+
+        elif chooseMission == 5:
+            self.wait(int(self.minimalTimeWaiting * 0.75))
+            self.eightMissionL(parametr)
+
+        elif chooseMission ==6:
+            self.wait(int(self.minimalTimeWaiting * 0.75))
+            self.circleCurveMissionL(parametr)
+
+        elif chooseMission == 7:
             self.wait(int(self.minimalTimeWaiting * 0.75))
             self.test(parametr)
 
