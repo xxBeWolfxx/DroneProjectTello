@@ -134,12 +134,12 @@ no frame!
 ```
 > This error is easy to solve. Packages of information from UAV come with big delay. You have to only wait some time. On the other hand we have managed with this problem and IDE stopped executing program. We suggest changing an IDE. 
 ```bash
-foffefe ""TODO""
+no h264 decode
 ```
 > This problem is critical. Some cases you will not able to run this code in macOS or windows. On Linux you will have to install special libraries for lib264.
 
 2. Responses from UAV
 ```bash
-Response: error'no imu' TODO
+Response: error 'no imu' 
 ```
 > This problem is very complex. Firstly, you have to check state of drone's battery. It must not be too low. Secondly, you have to make calibration in [Tello app](https://play.google.com/store/apps/details?id=com.ryzerobotics.tello&hl=pl&gl=US). Thirdly, you would have to send commands to drone too quickly. You need to increase delay between commands. Moreover, sometimes the environment in which drone is tested, causes this problem. You have to check if lights in room is enough for drone and the base, from which done take off, is enough colourful. **REMEMBER!** Drone uses its camera for stabilization and IMU.
