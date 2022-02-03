@@ -1,4 +1,4 @@
-# TelloBird Basic mission example
+# TelloBird Basic mission [example](https://youtu.be/u5nsXvgXTMM)
 ### CAUTION
 To run the drone smoothly after starting the code, you need to wait until GUI with the camera view from the drone showed up. Everything is executed by the computer not a drone. 
 ## Example run
